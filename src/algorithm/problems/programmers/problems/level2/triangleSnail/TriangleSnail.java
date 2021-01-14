@@ -12,71 +12,24 @@ public class TriangleSnail {
 }
 
 class Solution {
-
+    private static int MOVE_UP = -1;
+    private static int MOVE_DOWN = 0;
+    private static int MOVE_RIGHT = 1;
+    
     public int[] solution(int n) {
         int[][] matrix = new int[n][n];
-        int length = n * (n + 1) / 2;
-        int[] answer = new int[length];
-
-        String direction = "down";
-        int number = 1;
-        int x = 0;
-        int y = 0;
-        int rightBorder = n - 1;
-        int upBorder = 1;
-        int downBorder = n - 1;
-        while (true) {
-            if (direction.equals("down")) {
-                if (x <= downBorder) {
-                    matrix[x++][y] = number++;
-                } else {
-                    direction = "right";
-                    downBorder--;
-                    x--;
-                    y++;
-                }
-            }
-            if (number == length + 1) {
-                break;
-            }
-            if (direction.equals("right")) {
-                if (y <= rightBorder) {
-                    matrix[x][y++] = number++;
-                } else {
-                    direction = "up";
-                    rightBorder--;
-                    y -= 2;
-                    x--;
-                }
-            }
-            if (number == length + 1) {
-                break;
-            }
-            if (direction.equals("up")) {
-                if (x >= upBorder) {
-                    matrix[x--][y--] = number++;
-                } else {
-                    direction = "down";
-                    upBorder++;
-                    x += 2;
-                    y++;
-                }
-            }
-            if (number == length + 1) {
-                break;
-            }
+        int end = (n+1) * n / 2;
+        int direction = MOVE_DOWN;
+        
+        int currentNum = 1;
+        int i = 0; // row
+        int j = 0; // column
+        while (currentNum < end) {
+            matrix[i][j] = currentNum++;
+            
         }
-
-        int k = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (matrix[i][j] == 0) {
-                    break;
-                }
-                answer[k++] = matrix[i][j];
-            }
-        }
-
-        return answer;
+        
+        
+        return matrix[0];
     }
 }
