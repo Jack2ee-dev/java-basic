@@ -1,4 +1,4 @@
-package algorithm.problems.baekjoon.String;
+package algorithm.problems.baekjoon.string;
 
 import java.util.Scanner;
 import java.util.Stack;
