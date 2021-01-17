@@ -19,16 +19,14 @@ public class Problem_1181 {
         
         List<String> sanitized = new ArrayList<>(set);
         sanitized.sort((o1, o2) -> {
-            if (o1.length() == o2.length()) {
+            if (o1.length() != o2.length()) {
+                return o1.length() - o2.length();
+            } else {
                 for (int i = 0; i < o1.length(); i++) {
-                    if (o2.charAt(i) > o1.charAt(i)) {
+                    if (o1.charAt(i) < o2.charAt(i)) {
                         return -1;
                     }
                 }
-            }
-            
-            if (o1.length() != o2.length()) {
-                return o1.length() - o2.length();
             }
             
             return 0;
