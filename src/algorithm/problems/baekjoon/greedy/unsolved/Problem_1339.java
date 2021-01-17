@@ -1,4 +1,4 @@
-package algorithm.problems.baekjoon.greedy;
+package algorithm.problems.baekjoon.greedy.unsolved;
 
 import java.util.Arrays;
 import java.util.HashMap;
