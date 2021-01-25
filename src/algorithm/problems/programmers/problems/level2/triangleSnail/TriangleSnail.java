@@ -12,24 +12,62 @@ public class TriangleSnail {
 }
 
 class Solution {
-    private static int MOVE_UP = -1;
-    private static int MOVE_DOWN = 0;
-    private static int MOVE_RIGHT = 1;
-    
+
     public int[] solution(int n) {
-        int[][] matrix = new int[n][n];
-        int end = (n+1) * n / 2;
-        int direction = MOVE_DOWN;
-        
-        int currentNum = 1;
-        int i = 0; // row
-        int j = 0; // column
-        while (currentNum < end) {
-            matrix[i][j] = currentNum++;
-            
+        int size = n * (n + 1) / 2;
+        int[] answer = new int[size];
+
+        int[][] map = new int[n][n];
+        int direction = 0;
+        int x = 0, y = 0;
+        int cnt = n;
+        int cur = 0;
+        for (int i = 1; i <= size; i++) {
+            if (direction == 0) {
+                map[x][y] = i;
+                if (cur == cnt - 1) {
+                    direction = 1;
+                    y++;
+                    cur = 0;
+                    cnt--;
+                } else {
+                    x++;
+                    cur++;
+                }
+            } else if (direction == 1) {
+                map[x][y] = i;
+                if (cur == cnt - 1) {
+                    direction = -1;
+                    x--;
+                    y--;
+                    cnt--;
+                    cur = 0;
+                } else {
+                    y++;
+                    cur++;
+                }
+            } else {
+                map[x][y] = i;
+                if (cur == cnt - 1) {
+                    direction = 0;
+                    x++;
+                    cnt--;
+                    cur = 0;
+                } else {
+                    x--;
+                    y--;
+                    cur++;
+                }
+            }
         }
-        
-        
-        return matrix[0];
+
+        int index = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= i; j++) {
+                answer[index++] = map[i][j];
+            }
+        }
+
+        return answer;
     }
 }

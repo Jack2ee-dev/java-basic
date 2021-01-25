@@ -6,7 +6,7 @@ import java.util.Set;
 public class SearchPrimary {
 
     public static void main(String[] args) {
-        String numbers = "17";
+        String numbers = "011";
         Solution s = new Solution();
         System.out.println(s.solution(numbers));
     }
@@ -14,55 +14,61 @@ public class SearchPrimary {
 
 class Solution {
 
-    private static final boolean[] VISITED = new boolean[7];
-    private static final Set<Integer> INTEGERS = new HashSet<>();
-    private static final StringBuilder TEMP_STRING = new StringBuilder();
+    private static int[] nums;
+    private static boolean[] visit;
+    private static Set<Integer> set = new HashSet<>();
 
     public int solution(String numbers) {
         int answer = 0;
-        String[] sp = numbers.split("");
+        String[] split = numbers.split("");
+        visit = new boolean[split.length];
+        nums = new int[split.length];
 
-        makeInteger(0, sp.length, sp);
-        for (int integer : INTEGERS) {
-            if (isPrimary(integer)) {
-                answer++;
+        for (int i = 0; i < split.length; i++) {
+            nums[i] = Integer.parseInt(split[i]);
+        }
+
+        for (int i = 1; i <= split.length; i++) {
+            dfs(0, i, "");
+        }
+
+        for (int num : set) {
+            if (num != 0 && num != 1) {
+                if (num == 2) {
+                    answer++;
+                } else {
+                    int sqrt = (int) Math.sqrt(num);
+                    boolean isPrime = true;
+                    for (int j = 2; j <= sqrt; j++) {
+                        if (num % j == 0) {
+                            isPrime = false;
+                            break;
+                        }
+                    }
+
+                    if (isPrime) {
+                        answer++;
+                    }
+                }
             }
         }
 
         return answer;
     }
 
-
-    static void makeInteger(int depth, int limit, String[] numbers) {
+    private void dfs(int depth, int limit, String num) {
         if (depth == limit) {
+            set.add(Integer.parseInt(num));
             return;
         }
 
-        for (int i = 0; i < limit; i++) {
-            if (!VISITED[i]) {
-                VISITED[i] = true;
-                TEMP_STRING.append(numbers[i]);
-                INTEGERS.add(Integer.parseInt(TEMP_STRING.toString()));
-                makeInteger(depth + 1, limit, numbers);
-                TEMP_STRING.deleteCharAt(TEMP_STRING.length() - 1);
-                VISITED[i] = false;
+        for (int i = 0; i < nums.length; i++) {
+            if (!visit[i]) {
+                visit[i] = true;
+                dfs(depth + 1, limit, num + nums[i]);
+                visit[i] = false;
             }
         }
     }
 
-    static boolean isPrimary(int number) {
-        if (number == 0 || number == 1) {
-            return false;
-        }
-        if (number == 2) {
-            return true;
-        }
-        int uplimit = (int) Math.sqrt(number);
-        for (int i = 2; i < uplimit; i++) {
-            if (number % i == 0) {
-                return false;
-            }
-        }
-        return true;
-    }
 }
