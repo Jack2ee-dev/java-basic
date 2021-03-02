@@ -3,10 +3,13 @@ package algorithm.problems.baekjoon.recursion;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Problem_2447 {
 
     private static char[][] painted;
+    private List<String> list = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
